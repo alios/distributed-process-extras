@@ -172,7 +172,7 @@ class Resolvable a where
   -- | Resolve the reference to a process id, or @Nothing@ if resolution fails
   resolve :: a -> Process (Maybe ProcessId)
 
-    -- | Unresolvable @Addressable@ Message
+  -- | Unresolvable @Addressable@ Message
   unresolvableMessage :: (Resolvable a) => a -> String
   unresolvableMessage = baseAddressableErrorMessage
 
