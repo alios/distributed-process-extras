@@ -78,6 +78,9 @@ instance NFSerializable ProcessId
 instance (NFSerializable a) => NFSerializable (SendPort a)
 instance NFSerializable Message
 
+instance NFSerializable () where
+
+
 -- | Tags provide uniqueness for messages, so that they can be
 -- matched with their response.
 type Tag = Int
