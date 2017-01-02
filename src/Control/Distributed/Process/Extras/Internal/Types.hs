@@ -112,6 +112,7 @@ data CancelWait = CancelWait
     deriving (Eq, Show, Typeable, Generic)
 instance Binary CancelWait where
 instance NFData CancelWait where
+instance NFSerializable CancelWait where
 
 -- | Simple representation of a channel.
 type Channel a = (SendPort a, ReceivePort a)
@@ -121,6 +122,7 @@ data RegisterSelf = RegisterSelf
   deriving (Typeable, Generic)
 instance Binary RegisterSelf where
 instance NFData RegisterSelf where
+instance NFSerializable RegisterSelf where
 
 -- | A ubiquitous /shutdown signal/ that can be used
 -- to maintain a consistent shutdown/stop protocol for
@@ -129,6 +131,7 @@ data Shutdown = Shutdown
   deriving (Typeable, Generic, Show, Eq)
 instance Binary Shutdown where
 instance NFData Shutdown where
+instance NFSerializable Shutdown where
 
 -- | Provides a /reason/ for process termination.
 data ExitReason =
@@ -138,6 +141,7 @@ data ExitReason =
   deriving (Typeable, Generic, Eq, Show)
 instance Binary ExitReason where
 instance NFData ExitReason where
+instance NFSerializable ExitReason where
 
 baseAddressableErrorMessage :: (Resolvable a) => a -> String
 baseAddressableErrorMessage _ = "CannotResolveAddressable"
@@ -183,7 +187,7 @@ instance Resolvable ProcessId where
 instance Resolvable String where
   resolve = whereis
   unresolvableMessage s = "CannotResolveRegisteredName[" ++ s ++ "]"
- 
+
 instance Resolvable (NodeId, String) where
   resolve (nid, pname) = whereisRemote nid pname
   unresolvableMessage (n, s) =
@@ -273,4 +277,3 @@ data ServerDisconnected = ServerDisconnected !DiedReason
   deriving (Typeable, Generic)
 instance Binary ServerDisconnected where
 instance NFData ServerDisconnected where
-
